@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.detail-content{
+.detail-content {
 	margin: 0 auto;
 	width: 800px;
 	height: auto;
@@ -8,14 +8,14 @@
 	box-sizing: border-box;
 }
 
-.title{
+.title {
 	width: 100%;
 	height: 50px;
 	line-height:50px;
 	font-size: large;
 }
 
-.name-bar{
+.name-bar {
 	width: 100%;
 	border-bottom: 1px solid black;
 	background-color: #8D6E63;
@@ -25,22 +25,22 @@
 	color: white;
 }
 
-.name, .like, .date, .ip{
+.name, .like, .date, .ip {
 	width: 50%;
 	height:20px;
 	float: left;
 }
 
-.name, .like{
+.name, .like {
 	border-bottom: 1px solid black;
 }
 
-.like, .ip{
+.like, .ip {
 	text-align: right;
 		
 }
 
-.content{
+.content {
 	width:100%;
 	min-height:500px; 
 	height: auto;

@@ -18,4 +18,11 @@
 		WHERE bno=#{bno}
 	</select>
 	
+	<!-- insert는 result가 없습니다. -->
+	
+	<insert id="writer" parameterType="boardDTO">
+		INSERT INTO board (btitle, bcontent, bwrite)
+		VALUES (#{btitle}, #{bcontent}, #{bwrite})
+	</insert>
+	
 </mapper>

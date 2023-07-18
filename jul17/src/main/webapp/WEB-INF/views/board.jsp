@@ -15,6 +15,9 @@
 	<div style="text-align: center;">
 		<img alt="" src="./img/images.jpg" height="200px">
 	</div>
+	<div style="text-align: center;">
+		<button onclick="location.href='./write'">글쓰기</button>
+	</div>	
 		
 	<table>
 		<tr>
