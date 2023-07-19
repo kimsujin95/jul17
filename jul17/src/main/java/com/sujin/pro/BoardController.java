@@ -85,7 +85,6 @@ public class BoardController {
 		boardService.delete(dto);
 		
 		return "redirect:board"; // 삭제를 완료한 후에 다시 보드로 갑니다.
-		// 수진
 	}
 
 }
