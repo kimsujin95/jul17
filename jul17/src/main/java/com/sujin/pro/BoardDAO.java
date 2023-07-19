@@ -28,5 +28,9 @@ public class BoardDAO {
 	public void write(BoardDTO dto) {
 		sqlSession.insert("board.writer", dto); // 네임스페이스.id, 값
 	}
+
+	public void delete(BoardDTO dto) {
+		sqlSession.delete("board.delete", dto);
+	}
 	
 }

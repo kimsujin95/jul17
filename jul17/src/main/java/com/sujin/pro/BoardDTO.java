@@ -2,8 +2,16 @@ package com.sujin.pro;
 
 public class BoardDTO {
 	private int bno, blike;
-	private String btitle, bwrite, bcontent, bdate;
+	private String btitle, bwrite, bcontent, bdate, bip;
 	
+	public String getBip() {
+		return bip;
+	}
+
+	public void setBip(String bip) {
+		this.bip = bip;
+	}
+
 	public int getBno() {
 		return bno;
 	}

@@ -7,7 +7,7 @@
 		SELECT * 
 		FROM board 
 		ORDER BY bno DESC 
-		LIMIT 10
+		LIMIT 20
 	</select>
 	
 	<!-- #{변수명}을 적어주면 변수가 들어가요. -->
@@ -19,10 +19,13 @@
 	</select>
 	
 	<!-- insert는 result가 없습니다. -->
-	
 	<insert id="writer" parameterType="boardDTO">
-		INSERT INTO board (btitle, bcontent, bwrite)
-		VALUES (#{btitle}, #{bcontent}, #{bwrite})
+		INSERT INTO board (btitle, bcontent, bwrite, bip)
+		VALUES (#{btitle }, #{bcontent }, #{bwrite }, #{bip })
 	</insert>
+	
+	<delete id="delete" parameterType="boardDTO">
+		DELETE FROM board WHERE bno=#{bno}
+	</delete>
 	
 </mapper>
