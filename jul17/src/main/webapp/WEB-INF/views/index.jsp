@@ -13,5 +13,7 @@
 <%@ include file="menu.jsp" %>
 	<h1>index</h1>
 	<!-- <a href="./board">보드로 가기</a> -->
+	<img alt="" src="./img/로그인.png" height="1000px">
+	<input type="text">
 </body>
 </html>

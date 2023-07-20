@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="./css/detail.css">
 <script type="text/javascript">
+	function update() {
+		if (confirm("수정하시겠습니까?")) {
+			location.href="./update?bno=${dto.bno }";
+		}
+	}
+	
 	function del() {
 		let chk = confirm("삭제하시겠습니까?"); // 참 거짓으로 나옵니다.
 //		alert(chk);
@@ -23,7 +29,7 @@
 	<div class="detail-content">
 		<div class="title">
 			${dto.bno } / ${dto.btitle }
-			<img alt="" src="./img/update.png">&nbsp;<img alt="" src="./img/delete.png" onclick="del()">
+			<img alt="" src="./img/update.png" onclick="update()">&nbsp;<img alt="" src="./img/delete.png" onclick="del()">
 		</div>
 		<div class="name-bar">
 			<div class="name">${dto.bwrite }님</div>

@@ -12,7 +12,7 @@
 	
 	<!-- #{변수명}을 적어주면 변수가 들어가요. -->
 	<!-- 주석을 안에 두면 오류가 생긴다. -->
-	<select id="detail" parameterType="String" resultType="boardDTO">
+	<select id="detail" parameterType="Integer" resultType="boardDTO">
 		SELECT *
 		FROM board
 		WHERE bno=#{bno}
@@ -25,7 +25,11 @@
 	</insert>
 	
 	<delete id="delete" parameterType="boardDTO">
-		DELETE FROM board WHERE bno=#{bno}
+		DELETE FROM board WHERE bno=#{bno }
 	</delete>
 	
+	<update id="update" parameterType="boardDTO">
+		UPDATE board set btitle=#{btitle }, bcontent=#{bcontent }
+		WHERE bno=#{bno }
+	</update>
 </mapper>

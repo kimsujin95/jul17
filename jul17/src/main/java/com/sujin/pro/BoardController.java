@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BoardController {
@@ -19,7 +20,7 @@ public class BoardController {
 	private BoardService boardService;
 
 	@Autowired
-	private Util util; // 컴포넌트 Util과 연결했습니다.
+	private Util util; // 우리가 만든 숫자변환을 사용하기 위해서 객체 연결했어요.
 	
 	
 	@GetMapping("/board")
@@ -34,7 +35,9 @@ public class BoardController {
 	@GetMapping("/detail")
 	public String detail(HttpServletRequest request, Model model) { // 디테일이 들어올때 값까지 같이 들어오게 하는거.. 사용자가 118번 글을 클릭했을때 그
 																	// 내용이 HttpServletRequest request에 들어있는거..
-		String bno = request.getParameter("bno");
+//		String bno = request.getParameter("bno");
+		int bno = util.strToInt(request.getParameter("bno"));
+		
 		// bno에 요청하는 값이 있습니다. 이 값을 db까지 보내겠습니다.
 		// System.out.println("bno : " + bno);
 
@@ -86,5 +89,26 @@ public class BoardController {
 		
 		return "redirect:board"; // 삭제를 완료한 후에 다시 보드로 갑니다.
 	}
+	
+	@GetMapping("/update")
+	public ModelAndView update(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("update"); // update.jsp
+		// 데이터베이스에 bno를 보내서 dto를 얻어옵니다.
+		BoardDTO dto = boardService.detail(util.strToInt(request.getParameter("bno")));
+		// mv에 실어보냅니다.
+		mv.addObject("dto", dto);
+		return mv;
+	}
 
+	@PostMapping("/update")
+	public String update(BoardDTO dto) {
+//		System.out.println("map : " + map);
+//		System.out.println(dto.getBtitle());
+//		System.out.println(dto.getBcontent());
+//		System.out.println(dto.getBno());
+		
+		boardService.update(dto);
+		
+		return "redirect:detail?bno="+dto.getBno(); // 보드로 이동하게 해주세요.
+	}
 }
