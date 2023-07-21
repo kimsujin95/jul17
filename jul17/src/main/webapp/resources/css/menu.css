@@ -33,3 +33,13 @@ nav li:hover {
 	font-size: large;
 	font-weight: bold;
 }
+
+.lir, .liw {
+	float: right;
+}
+
+.lir{
+   width: 300px;
+   overflow: hidden;
+   font-size: small;
+}

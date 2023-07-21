@@ -66,7 +66,6 @@ public class BoardService {
 	}
 
 	public void update(BoardDTO dto) {
-		
 		boardDAO.update(dto);
 	}
 
