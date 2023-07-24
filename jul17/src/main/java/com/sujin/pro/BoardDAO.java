@@ -1,7 +1,6 @@
 package com.sujin.pro;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,12 +16,12 @@ public class BoardDAO {
 	@Named("sqlSession")
 	private SqlSession sqlSession;
 	
-	public List<Map<String, Object>> boardList() {
+	public List<BoardDTO> boardList() {
 		return sqlSession.selectList("board.boardList");
 	}
 
-	public BoardDTO detail(int bno) {
-		return sqlSession.selectOne("board.detail", bno); // 앞에는 네임스페이스.아이디, 값
+	public BoardDTO detail(BoardDTO dto2) {
+		return sqlSession.selectOne("board.detail", dto2); // 앞에는 네임스페이스.아이디, 값
 	}
 
 	public void write(BoardDTO dto) {

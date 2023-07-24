@@ -2,6 +2,7 @@ package com.sujin.pro;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class BoardController {
 	
 	
 	@GetMapping("/board")
-	public String board(Model model) { // 서비스에서 값 가져옵시다//서비스에서 값 가져옵시다
+	public String board(Model model) { // 서비스에서 값 가져옵시다
 		model.addAttribute("list", boardService.boardList()); // list란 이름으로 보드서비스에서 보드리스트를 불러옴
 		boardService.boardList();
 		return "board";
@@ -41,35 +42,61 @@ public class BoardController {
 		// bno에 요청하는 값이 있습니다. 이 값을 db까지 보내겠습니다.
 		// System.out.println("bno : " + bno);
 
-		BoardDTO dto = boardService.detail(bno); // 보드서비스를 실행하면 dto가 나와 이런 느낌
-		model.addAttribute("dto", dto);
+		// DTO로 변경합니다.
+		BoardDTO dto = new BoardDTO();
+		dto.setBno(bno);
+//		dto.setM_id(null); 글 상세보기에서는 mid가 없어도 됩니다.
+		
+		BoardDTO result = boardService.detail(dto); // 보드서비스를 실행하면 dto가 나와 이런 느낌
+		model.addAttribute("dto", result);
 
 		return "detail";
 	}
 
 	@GetMapping("/write") // 화면만 보여주는 녀석
-	public String write() {
-		return "write";
+	public String write(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("mname") != null) {
+			return "write";
+		} else {
+			return "redirect:/login"; // 슬러시 넣어주세요.
+		}
 	}
 
 	@PostMapping("/write")
-	public String write(HttpServletRequest request) { // write 메소드가 똑같기 때문에 HttpServletRequest 씀
+	public String write2(HttpServletRequest request) { // write 메소드가 똑같기 때문에 HttpServletRequest 씀
+
+		HttpSession session = request.getSession();
+		if (session.getAttribute("mid") != null) {
+			// 로그인 했습니다. = 아래 로직을 여기로 가져오세요.
+			BoardDTO dto = new BoardDTO();
+			dto.setBtitle(request.getParameter("title")); // write.jsp에서 지정하였다.
+			dto.setBcontent(request.getParameter("content"));
+//			dto.setBip(ip); // 얻어온 ip도 저장해서 데이터베이스로 보내겠습니다.
+//			dto.setBip(util.getIp()); -> BoardService.java로 옮겼다.
+
+			// 임시로 적는다. 로그인 추가되면 변경한다.
+			// 세션에서 불러오겠습니다.
+			dto.setM_id((String)session.getAttribute("mid")); // 세션에서 가져옴
+			dto.setM_name((String)session.getAttribute("mname")); // 세션에서 가져옴
+
+			// Service -> DAO -> maybatis -> DB로 보내서 저장하기
+			boardService.write(dto);
+
+			return "redirect:board"; // 글을 쓰면 다시 보드를 실행시킨다. 다시 컨트롤러 지나가기 get방식으로 간다.
+			
+		} else {
+			
+			// 로그인 안 했어요. = 로그인 하세요.
+			return "redirect:/login";
+		}
+		
+		// 메소드명에 2를 넣어주세요.
 		// 사용자가 입력한 데이터 변수에 담기
 		// System.out.println(request.getParameter("title")); //wirte.jsp에서 씀
 		// System.out.println(request.getParameter("content"));
 		// System.out.println("===============================");
 		
-		BoardDTO dto = new BoardDTO();
-		dto.setBtitle(request.getParameter("title")); // write.jsp에서 지정하였다.
-		dto.setBcontent(request.getParameter("content"));
-//		dto.setBip(ip); // 얻어온 ip도 저장해서 데이터베이스로 보내겠습니다.
-//		dto.setBip(util.getIp()); -> BoardService.java로 옮겼다.
-		dto.setBwrite("홍길동2");// 임시로 적는다. 로그인 추가되면 변경한다.
-
-		// Service -> DAO -> maybatis -> DB로 보내서 저장하기
-		boardService.write(dto);
-
-		return "redirect:board"; // 글을 쓰면 다시 보드를 실행시킨다. 다시 컨트롤러 지나가기 get방식으로 간다.
 	}
 
 	// 삭제가 들어온다면 http://172.30.1.64/delete?bno=글번호
@@ -92,11 +119,23 @@ public class BoardController {
 	
 	@GetMapping("/update")
 	public ModelAndView update(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
 		ModelAndView mv = new ModelAndView("update"); // update.jsp
+		
+		// dto를 하나 만들어서 거기에 담겠습니다. = bno, mid
+		BoardDTO dto = new BoardDTO();
+		dto.setBno(util.strToInt(request.getParameter("bno")));
+		// 내 글만 수정할 수 있도록 세션에 있는 mid도 보냅니다.
+		dto.setM_id((String)session.getAttribute("mid"));
+		
 		// 데이터베이스에 bno를 보내서 dto를 얻어옵니다.
-		BoardDTO dto = boardService.detail(util.strToInt(request.getParameter("bno")));
+		BoardDTO result = boardService.detail(dto);
+		
+		
 		// mv에 실어보냅니다.
-		mv.addObject("dto", dto);
+		mv.addObject("dto", result);
 		return mv;
 	}
 

@@ -1,7 +1,6 @@
 package com.sujin.pro;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,12 +19,12 @@ public class BoardService {
 	private Util util;
 
 	// 보드 리스트 불러오는 메소드
-	public List<Map<String, Object>> boardList() {	
+	public List<BoardDTO> boardList() {	
 		return boardDAO.boardList();
 	}
 
-	public BoardDTO detail(int bno) {
-		BoardDTO dto = boardDAO.detail(bno);
+	public BoardDTO detail(BoardDTO dto2) {
+		BoardDTO dto = boardDAO.detail(dto2);
 		// 검사 : .이 없거나, null이면 실행하지 않게 해주세요.
 		if (dto.getBip() != null && dto.getBip().indexOf(".") != -1) {
 			// 여기서 ip 뽑아올 수 있죠?
