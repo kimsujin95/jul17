@@ -7,5 +7,7 @@
 		<typeAlias type="com.sujin.pro.BoardDTO" alias="boardDTO"/>
 
 		<typeAlias type="com.sujin.pro.LoginDTO" alias="loginDTO"/>		
+
+		<typeAlias type="com.sujin.pro.PageDTO" alias="pageDTO"/>		
 	</typeAliases>
 </configuration>
