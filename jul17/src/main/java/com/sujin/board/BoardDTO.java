@@ -1,8 +1,8 @@
-package com.sujin.pro;
+package com.sujin.board;
 
 public class BoardDTO {
 	private int bno, blike;
-	private String btitle, m_name, m_id, bcontent, bdate, bip;
+	private String btitle, m_name, m_id, bcontent, bdate, bip, uuid;
 
 	public int getBno() {
 		return bno;
@@ -36,6 +36,14 @@ public class BoardDTO {
 		this.m_name = m_name;
 	}
 
+	public String getM_id() {
+		return m_id;
+	}
+
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
+	}
+
 	public String getBcontent() {
 		return bcontent;
 	}
@@ -60,12 +68,11 @@ public class BoardDTO {
 		this.bip = bip;
 	}
 
-	public String getM_id() {
-		return m_id;
+	public String getUuid() {
+		return uuid;
 	}
 
-	public void setM_id(String m_id) {
-		this.m_id = m_id;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
-
 }

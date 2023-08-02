@@ -1,4 +1,4 @@
-package com.sujin.pro;
+package com.sujin.board;
 // 롬복 lombok
 public class PageDTO {
 	private int firstRecordIndex, recordCountPerPage;

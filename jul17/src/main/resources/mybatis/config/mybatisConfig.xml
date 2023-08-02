@@ -4,10 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.sujin.pro.BoardDTO" alias="boardDTO"/>
+		<typeAlias type="com.sujin.board.BoardDTO" alias="boardDTO"/>
 
-		<typeAlias type="com.sujin.pro.LoginDTO" alias="loginDTO"/>		
+		<typeAlias type="com.sujin.login.LoginDTO" alias="loginDTO"/>		
 
-		<typeAlias type="com.sujin.pro.PageDTO" alias="pageDTO"/>		
+		<typeAlias type="com.sujin.board.PageDTO" alias="pageDTO"/>		
+
+		<typeAlias type="com.sujin.login.JoinDTO" alias="joinDTO"/>		
 	</typeAliases>
 </configuration>

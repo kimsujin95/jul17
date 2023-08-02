@@ -1,4 +1,4 @@
-package com.sujin.pro;
+package com.sujin.board;
 
 import java.util.List;
 

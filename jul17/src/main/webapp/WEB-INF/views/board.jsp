@@ -56,7 +56,8 @@
 			
 		</c:when>
 		<c:otherwise>
-			출력할 데이터가 없습니다.
+			<br>
+			<h1>출력할 데이터가 없습니다.</h1>
 		</c:otherwise>
 	</c:choose>
 

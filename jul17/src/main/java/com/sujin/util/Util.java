@@ -1,4 +1,4 @@
-package com.sujin.pro;
+package com.sujin.util;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,4 +1,4 @@
-package com.sujin.pro;
+package com.sujin.login;
 
 public class LoginDTO {
 	private int m_no, m_grade, count; // count = 로그인 시 1,0이 옵니다.

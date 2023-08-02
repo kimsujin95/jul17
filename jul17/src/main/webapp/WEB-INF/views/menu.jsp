@@ -50,6 +50,7 @@ nav li:hover {
 			<li onclick="link('board2')">게시판2</li>
 			<li onclick="link('mooni')">문의사항</li>
 			<li onclick="link('notice')">공지</li>
+			<li onclick="link('members')">회원리스트</li>
 			<!-- <li onclick="link('love')">수진아꿀벌옷다시입어줘</li> -->
 			<c:choose>
 				<c:when test="${sessionScope.mname eq null}">

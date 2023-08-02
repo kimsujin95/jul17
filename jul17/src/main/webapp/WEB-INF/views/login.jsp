@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="./css/login.css">
 <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
 <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+	crossorigin="anonymous"></script>
 <script type="text/javascript">
 // 스크립트 영역
 let text = "<p>올바른 아이디를 입력하세요.</p>"; //전역변수
@@ -42,16 +45,33 @@ function check(){
    	}
 }
 
-const signUpButton = document.getElementById('signUp');
-const signInButton = document.getElementById('signIn');
-const container = document.getElementById('container');
 
-signUpButton.addEventListener('click', () => {
-  container.classList.add("right-panel-active");
-});
+// Jquery
+$(function() {
+	$(".login").click(function() {
+	let id = $("#id").val();
+	let pw = $("#pw").val();
+	if (id.length < 5) {
+		alert("아이디를 입력하세요.");
+		$('#id').focus();
+	} else {
+		if (pw.length < 5) {
+			alert("암호를 입력하세요.");		
+			$('#pw').focus();
+		} else {
+			// 아이디하고 암호하고 정확하게 입력되었습니다.
+			let form = $("<form></form>");
+            form.attr("method", "post");
+            form.attr("action", "./login");
 
-signInButton.addEventListener('click', () => {
-  container.classList.remove("right-panel-active");
+            form.append($("<input/>", {type:"hidden", name:"id", value:id}));
+            form.append($("<input/>", {type:"hidden", name:"pw", value:pw}));
+
+            form.appendTo('body');
+            form.submit();
+		}	
+	}
+	});	
 });
 </script>
 </head>
@@ -78,18 +98,23 @@ signInButton.addEventListener('click', () => {
 		</div>
 		<div class="form-container sign-in-container">
 			<form action="./login" method="post" onsubmit="return check()">
-				<h1>Sign in</h1>
-				<div class="social-container">
-					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a> <a
-						href="#" class="social"><i class="fab fa-google-plus-g"></i></a> <a
-						href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-				</div>
-				<span>or use your account</span> 
-				<input type="text" name="id" id="id" placeholder="Id" required="required" maxlength="10" onchange="checkID()"/> 
-				<input type="password" name="pw" id="pw" placeholder="Password" required="required" maxlength="15" /> 
-				<a href="#">Forgot your password?</a>
-				<button type="submit" class="login">Sign In</button>
-				<span id="msg"></span>
+
+
+			<h1>Sign in</h1>
+			<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a> <a
+					href="#" class="social"><i class="fab fa-google-plus-g"></i></a> <a
+					href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+			<span>or use your account</span> 
+			<input type="text" name="id" id="id"
+				placeholder="Id" required="required" maxlength="10"
+				onchange="checkID()" /> 
+				<input type="password" name="pw" id="pw"
+				placeholder="Password" required="required" maxlength="15" /> <a
+				href="#">Forgot your password?</a>
+			<button type="submit" class="login">Sign In</button>
+			<span id="msg"></span>
 			</form>
 		</div>
 		<div class="overlay-container">
@@ -103,7 +128,9 @@ signInButton.addEventListener('click', () => {
 				<div class="overlay-panel overlay-right">
 					<h1>Hello, Friend!</h1>
 					<p>Enter your personal details and start journey with us</p>
-					<button class="ghost" id="signUp">Sign Up</button>
+					<button class="ghost" id="signUp">
+						<a href="./join">Sign Up</a>
+					</button>
 				</div>
 			</div>
 		</div>

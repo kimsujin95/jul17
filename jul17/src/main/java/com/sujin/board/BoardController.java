@@ -1,6 +1,8 @@
-package com.sujin.pro;
+package com.sujin.board;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.sujin.util.Util;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -109,8 +113,14 @@ public class BoardController {
 			// 임시로 적는다. 로그인 추가되면 변경한다.
 			// 세션에서 불러오겠습니다.
 			dto.setM_id((String) session.getAttribute("mid")); // 세션에서 가져옴
-			dto.setM_name((String) session.getAttribute("mname")); // 세션에서 가져옴
-
+//			dto.setM_name((String) session.getAttribute("mname")); // 세션에서 가져옴
+			dto.setUuid(UUID.randomUUID().toString());
+			
+			System.out.println("======================");
+			System.out.println(dto.getUuid());
+			System.out.println(dto.getUuid().length());
+			System.out.println("======================");
+			
 			// Service -> DAO -> maybatis -> DB로 보내서 저장하기
 			boardService.write(dto);
 
@@ -196,5 +206,5 @@ public class BoardController {
 		boardService.update(dto);
 
 		return "redirect:detail?bno=" + dto.getBno(); // 보드로 이동하게 해주세요.
-	}
+	}	
 }

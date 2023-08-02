@@ -1,4 +1,4 @@
-package com.sujin.pro;
+package com.sujin.board;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.sujin.util.Util;
 
 @Service("boardService")
 public class BoardService {
@@ -19,13 +21,14 @@ public class BoardService {
 	private Util util;
 
 	// 보드 리스트 불러오는 메소드
+	// 메소드 괄호 안에 페이징을 가져오는 파라미터 PageDTO 객체타입을 넣는다.
 	public List<BoardDTO> boardList(PageDTO page) {
 		return boardDAO.boardList(page);
 	}
 
 	public BoardDTO detail(BoardDTO dto2) {
 		
-		// 좋아요수 +1하기 기능을 넣어주겠습니다.
+		// 조회수 +1하기 기능을 넣어주겠습니다.
 		boardDAO.likeUp(dto2);
 		
 		BoardDTO dto = boardDAO.detail(dto2);
