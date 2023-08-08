@@ -9,12 +9,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class LoginDAO {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 
 	public LoginDTO login(LoginDTO dto) {
-		
 		return sqlSession.selectOne("login.login", dto);
 	}
 
@@ -27,12 +26,14 @@ public class LoginDAO {
 	}
 
 	public int checkID(String id) {
-
 		return sqlSession.selectOne("login.checkID", id);
 	}
 
-	public List<Map<String, Object>> boardList2() {
-		
-		return sqlSession.selectList("login.boardList2");
+	public List<Map<String, Object>> boardList2(int i) {
+		return sqlSession.selectList("login.boardList2", i);
+	}
+
+	public int totalCount() {
+		return sqlSession.selectOne("login.totalCount");
 	}
 }

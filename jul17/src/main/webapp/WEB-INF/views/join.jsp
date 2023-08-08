@@ -24,22 +24,22 @@
 				$("#resultMSG").css("color", "red").css("font-weight", "bold").css("font-size", "15pt");
 			} else {
 				$.ajax({ // ajax 시작 
-					url : "./checkID",
-					type: "post",
-					data: {"id" : id},
-					dataType: "json", // {result : 0}
+					url : "./checkID", // 보낼 경로
+					type: "post", // method타입을 post로 지정
+					data: {"id" : id}, // 데이터값 : id
+					dataType: "json", // {result : 0} 표시
 					success: function(data){ // 서버에서 날라오는 data
 //						alert(data.result);
-						if (data == 1) {
+						if (data.result == 1) { // 중복된 ID가 있으면
 							$("#id").css("background-color", "red").focus();
 							$("#resultMSG").css("color", "red").text("이미 등록된 아이디입니다.");
-						} else {
+						} else { // 중복된 ID가 없으면
 							$("#id").css("background-color", "white");
 							$("#resultMSG").css("color", "blue").text("가입할 수 있습니다.");		
 						}
 						//$("#resultMSG").text("성공 시 결과값 : " + data);
 					},
-					error: function(request, status, error){
+					error: function(request, status, error){ // 서버에 통신이 불가할 때
 						$("#resultMSG").text("오류가 발생했습니다. 가입할 수 없습니다.");	
 					}
 				}); // ajax 끝

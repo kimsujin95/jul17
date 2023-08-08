@@ -1,7 +1,16 @@
 package com.sujin.board;
 
 public class BoardDTO {
-	private int bno, blike;
+	private int bno, blike, commentcount;
+
+	public int getCommentcount() {
+		return commentcount;
+	}
+
+	public void setCommentcount(int commentcount) {
+		this.commentcount = commentcount;
+	}
+
 	private String btitle, m_name, m_id, bcontent, bdate, bip, uuid;
 
 	public int getBno() {

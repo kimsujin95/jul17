@@ -1,3 +1,4 @@
+<%@page import="com.sujin.board.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -41,8 +42,12 @@
 				<c:forEach items="${list }" var="row">
 					<!--  onclick 자바스크립트 페이지 이동, URL?파라미터=값 -->
 					<tr onclick="location.href='./detail?bno=${row.bno }'">
-						<td id="td1">${row.bno }</td>
-						<td class="title">${row.btitle }</td>
+						<td id="td1">${row.bno }</td>				
+						<td class="title">${row.btitle }
+							<small>
+								<c:if test="${row.commentcount ne 0 }">${row.commentcount }</c:if>
+							</small>
+						</td>					
 						<td id="td1">${row.m_name }</td>
 						<td id="td2">${row.bdate }</td>
 						<td id="td1">${row.blike }</td>

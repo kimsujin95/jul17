@@ -40,6 +40,8 @@
 	</repositories>
 
 	<dependencies>
+		
+		<!-- json 객체 및 문법을 쓰기 위해 dependency 적용 -->
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
 		<dependency>
 			<groupId>org.json</groupId>

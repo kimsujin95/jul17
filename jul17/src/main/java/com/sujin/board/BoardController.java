@@ -83,6 +83,12 @@ public class BoardController {
 //		dto.setM_id(null); 글 상세보기에서는 mid가 없어도 됩니다.
 
 		BoardDTO result = boardService.detail(dto); // 보드서비스를 실행하면 dto가 나와 이런 느낌
+//		System.out.println(result.getCommentcount());
+		if (result.getCommentcount() > 0) {
+			// 데이터베이스에 물어봐서 jsp로 보냅니다.
+			List<Map<String, Object>> commentsList = boardService.commentsList(bno);
+			model.addAttribute("commentsList", commentsList);
+		}
 		model.addAttribute("dto", result);
 
 		return "detail";
@@ -207,4 +213,47 @@ public class BoardController {
 
 		return "redirect:detail?bno=" + dto.getBno(); // 보드로 이동하게 해주세요.
 	}	
+
+
+	// 2023-08-07 입추, 프레임워크 프로그래밍
+	@GetMapping("/cdel") // bno, cno
+	public String cdel(@RequestParam Map<String, Object> map, HttpSession session) {
+		// 로그인 여부 검사
+		if (session.getAttribute("mid") != null) {
+			// 값 들어왔는지 여부 검사
+//			System.out.println(map.get("bno"));
+//			System.out.println(map.get("cno").equals(""));
+//			System.out.println(map.get("cno").equals(null));
+			if (map.containsKey("bno") && map.get("cno") != null && 
+				!(map.get("bno").equals("")) && !(map.get("cno").equals("")) && 
+				util.isNum(map.get("bno")) && util.isNum(map.get("cno"))) {
+				
+//				System.out.println("여기로 들어왔습니다.");
+				map.put("mid", session.getAttribute("mid"));
+				int result = boardService.cdel(map);
+				System.out.println("삭제 결과 : " + result);
+				
+			}	
+		}
+		
+		return "redirect:/detail?bno=" + map.get("bno");
+	}
+	
+	@PostMapping("/cupdate")
+	public String cupdate(@RequestParam Map<String, Object> map, HttpSession session) {
+		if (session.getAttribute("mid") != null) {
+			if (map.get("bno") != null && !(map.get("bno").equals("")) && map.containsKey("cno") && !(map.get("cno").equals(""))) {
+				map.put("mid", session.getAttribute("mid"));
+				System.out.println(map);
+				int result = boardService.cupdate(map);
+				
+				return "redirect:/detail?bno=" + map.get("bno");				
+			} else {
+				return "redirect:/board";
+			}			
+		} else {
+			return "redirect:/login";
+		}
+		
+	}
 }

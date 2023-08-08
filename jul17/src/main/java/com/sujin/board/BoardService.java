@@ -1,6 +1,7 @@
 package com.sujin.board;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -85,6 +86,18 @@ public class BoardService {
 	// 전체 글 수 가져오기 2023-07-26 sql응용
 	public int totalCount() {
 		return boardDAO.totalCount();
+	}
+
+	public List<Map<String, Object>> commentsList(int bno) {
+		return boardDAO.commentsList(bno);
+	}
+
+	public int cdel(Map<String, Object> map) {
+		return boardDAO.cdel(map);
+	}
+
+	public int cupdate(Map<String, Object> map) {
+		return boardDAO.cupdate(map);
 	}
 
 }

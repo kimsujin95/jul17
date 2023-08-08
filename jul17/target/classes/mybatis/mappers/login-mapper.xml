@@ -29,12 +29,18 @@
 		SELECT * FROM members
 	</select>
 
+	<!-- parameterType : 받아온 매개변수 데이터 타입, resultType : 내보낼 결과값 데이터 타입 -->
 	<select id="checkID" parameterType="String" resultType="Integer">
 		SELECT COUNT(*) FROM members WHERE m_id = #{id }
 	</select>
 
-	<select id="boardList2" resultType="Map">
-		SELECT * FROM boardview LIMIT 0, 10
+	<!-- 보드의 게시판 데이터를 가져오기 위한 쿼리문 -->
+	<select id="boardList2" parameterType="Integer" resultType="Map">
+		SELECT * FROM boardview LIMIT #{i }, 10
+	</select>
+
+	<select id="totalCount" resultType="Integer">
+		SELECT COUNT(*) FROM boardview 
 	</select>
 
 </mapper>    
